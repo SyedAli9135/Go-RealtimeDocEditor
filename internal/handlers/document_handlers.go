@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 	"realtime-doc-editor-backend/internal/models"
 	"realtime-doc-editor-backend/internal/repositories"
@@ -73,6 +74,9 @@ func UpdateDocumentHandler(c *gin.Context, documentRepo *repositories.DocumentRe
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
+	// Notify all Websocket clients about the document update
+	broadcastUpdate(doc, "update")
 	c.JSON(http.StatusOK, doc)
 }
 
@@ -91,4 +95,15 @@ func DeleteDocumentHandler(c *gin.Context, documentRepo *repositories.DocumentRe
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Document deleted successfully"})
+}
+
+// Helper function to broadcast updates
+func broadcastUpdate(doc *models.Document, action string) {
+	message := map[string]interface{}{
+		"action":   action,
+		"document": doc,
+	}
+
+	msg, _ := json.Marshal(message)
+	broadcastMessage(msg)
 }
