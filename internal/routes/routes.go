@@ -13,6 +13,7 @@ import (
 func RegisterRoutes(router *gin.Engine, db *gorm.DB, cfg interface{}) {
 	// Initialize the repository
 	documentRepo := repositories.NewDocumentRepository(db)
+	userRepo := repositories.NewUserRepository(db)
 
 	// Middleware
 	router.Use(middleware.LoggerMiddleware())
@@ -20,8 +21,17 @@ func RegisterRoutes(router *gin.Engine, db *gorm.DB, cfg interface{}) {
 	// Websocket route
 	router.GET("/ws", handlers.WebSocketHandler)
 
+	// Auth routes
+	router.POST("/auth/signup", func(ctx *gin.Context) {
+		handlers.SignupHandler(ctx, userRepo)
+	})
+	router.POST("/auth/login", func(ctx *gin.Context) {
+		handlers.LoginHandler(ctx, userRepo)
+	})
+
 	// Document management routes
 	api := router.Group("/api")
+	api.Use(middleware.JWTMiddleware)
 	{
 		api.POST("/documents", func(c *gin.Context) {
 			handlers.CreateDocumentHandler(c, documentRepo)

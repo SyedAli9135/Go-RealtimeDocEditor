@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// Run migrations (this will create the documents table)
-	err = db.AutoMigrate(models.Document{})
+	err = db.AutoMigrate(models.Document{}, models.User{})
 	if err != nil {
 		log.Fatalf("Failed to migrate the database: %v", err)
 	}
