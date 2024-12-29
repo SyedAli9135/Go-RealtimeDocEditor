@@ -1,5 +1,3 @@
-
-```markdown
 # Go-RealtimeDocEditor
 
 **Go-RealtimeDocEditor** is a real-time collaborative document editing tool built using Go for the backend. It allows multiple users to work on the same document simultaneously, with live updates, version control, and a robust synchronization mechanism. This project leverages WebSockets for real-time communication and uses a client-server architecture to facilitate collaborative editing.
@@ -40,58 +38,57 @@
 
 The **Go-RealtimeDocEditor** is structured around several key components that work together to provide seamless real-time document editing. The architecture is as follows:
 
-```
-            +---------------------------+
-            |      Web/Mobile Client     |
-            |  (Text Editor Interface)   |
-            +---------------------------+
-                       |
-                       | (WebSocket, REST API, WebRTC)
-                       v
-            +---------------------------+
-            |    Real-time Sync Server   |  <--------------------------+
-            | (Handles live updates,     |                           |
-            |  conflict resolution)      |                           |
-            +---------------------------+                           |
-                       |                                              |
-                       v                                              |
-           +-------------------------+                             |
-           |    Collaboration         |                             |
-           |    Management Server     |                             |
-           | (User actions, cursors,  |                             |
-           |   conflict resolution)   |                             |
-           +-------------------------+                             |
-                       |                                              |
-                       v                                              |
-           +-------------------------+  <-----------------------------+
-           |      Authentication      |
-           |     Server (OAuth, JWT)  |
-           +-------------------------+
-                       |
-                       v
-        +----------------------------+
-        |     Document Database      |
-        |  (Stores content & history)|
-        +----------------------------+
-                       |
-                       v
-        +----------------------------+
-        |   User Profile Database    |
-        | (Stores user data & access)|
-        +----------------------------+
-                       |
-                       v
-        +----------------------------+
-        |     File Storage Service   |
-        |  (Document storage system) |
-        +----------------------------+
-                       |
-                       v
-        +----------------------------+
-        |     Backup and Versioning  |
-        |  (Backup copies, revisions)|
-        +----------------------------+
-```
+        +---------------------------+
+        |      Web/Mobile Client     |
+        |  (Text Editor Interface)   |
+        +---------------------------+
+                   |
+                   | (WebSocket, REST API, WebRTC)
+                   v
+        +---------------------------+
+        |    Real-time Sync Server   |  <--------------------------+
+        | (Handles live updates,     |                           |
+        |  conflict resolution)      |                           |
+        +---------------------------+                           |
+                   |                                              |
+                   v                                              |
+       +-------------------------+                             |
+       |    Collaboration         |                             |
+       |    Management Server     |                             |
+       | (User actions, cursors,  |                             |
+       |   conflict resolution)   |                             |
+       +-------------------------+                             |
+                   |                                              |
+                   v                                              |
+       +-------------------------+  <-----------------------------+
+       |      Authentication      |
+       |     Server (OAuth, JWT)  |
+       +-------------------------+
+                   |
+                   v
+    +----------------------------+
+    |     Document Database      |
+    |  (Stores content & history)|
+    +----------------------------+
+                   |
+                   v
+    +----------------------------+
+    |   User Profile Database    |
+    | (Stores user data & access)|
+    +----------------------------+
+                   |
+                   v
+    +----------------------------+
+    |     File Storage Service   |
+    |  (Document storage system) |
+    +----------------------------+
+                   |
+                   v
+    +----------------------------+
+    |     Backup and Versioning  |
+    |  (Backup copies, revisions)|
+    +----------------------------+
+
 
 ### Explanation of the Components:
 
@@ -136,27 +133,3 @@ The **Go-RealtimeDocEditor** is structured around several key components that wo
    ```bash
    git clone https://github.com/yourusername/Go-RealtimeDocEditor.git
    cd Go-RealtimeDocEditor
-   ```
-
-2. Install required dependencies:
-   ```bash
-   go mod tidy
-   ```
-
-3. Set up your database (PostgreSQL/MongoDB):
-   - Configure your database settings in the `config` file.
-
-4. Run the server:
-   ```bash
-   go run main.go
-   ```
-
-5. Open the web client (or use the mobile client) to start editing documents.
-
----
-
-## Contributing
-
-Feel free to fork this repository, open issues, or submit pull requests. Contributions are welcome!
-
----
